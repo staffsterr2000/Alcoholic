@@ -6,11 +6,14 @@ enum Suit {
     CLUB("ТРЕФА"),
     SPADE("ПИКА");
 
-    private final String suit;
-    Suit(String suit) {
-        this.suit = suit;
+    @Override
+    public String toString() {
+        return word;
     }
-    public String getSuit() {
-        return suit;
+
+    private final String word;
+
+    Suit(String word) {
+        this.word = word;
     }
 }
