@@ -7,7 +7,7 @@ public enum Rank {
     EIGHT("8", 8), NINE("9", 9),
     TEN("10", 10), JACK("ВАЛЕТ", 11),
     QUEEN("ДАМА", 12), KING("КОРОЛЬ", 13),
-    ACE("ТУЗ", 13);
+    ACE("ТУЗ", 14);
 
     private final String word;
     private final int value;

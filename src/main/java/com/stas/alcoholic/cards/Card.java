@@ -3,7 +3,6 @@ package com.stas.alcoholic.cards;
 import java.util.Objects;
 
 public class Card {
-
     private final Suit suit;
     private final Rank rank;
 
@@ -30,6 +29,11 @@ public class Card {
     public Card(CardPattern pattern) {
         this.suit = pattern.getSuit();
         this.rank = pattern.getRank();
+    }
+
+    public Card(Suit suit, Rank rank) {
+        this.suit = suit;
+        this.rank = rank;
     }
 
     public Suit getSuit() {
