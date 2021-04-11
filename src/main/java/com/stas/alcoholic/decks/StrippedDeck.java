@@ -7,7 +7,6 @@ public class StrippedDeck extends Deck {
 
     public StrippedDeck() {
         addCards(CardUtil.getCardsByRank(Rank.SIX));
-        removeCards(CardUtil.getCardsByRank(Rank.SIX));
         addCards(CardUtil.getCardsByRank(Rank.SEVEN));
         addCards(CardUtil.getCardsByRank(Rank.EIGHT));
         addCards(CardUtil.getCardsByRank(Rank.NINE));
