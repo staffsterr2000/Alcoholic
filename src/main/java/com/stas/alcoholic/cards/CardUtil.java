@@ -32,7 +32,6 @@ public class CardUtil {
             switch (part.toUpperCase()) {
                 // 1 - is a 10
                 case "1" -> rank = Rank.TEN;
-
                 case "2" -> rank = Rank.TWO;
                 case "3" -> rank = Rank.THREE;
                 case "4" -> rank = Rank.FOUR;
