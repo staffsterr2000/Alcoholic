@@ -1,10 +1,10 @@
 package com.stas.alcoholic.cards;
 
 enum Suit {
-    HEART("ЧЕРВА"),
-    DIAMOND("БУБНА"),
-    CLUB("ТРЕФА"),
-    SPADE("ПИКА");
+    HEART("HEART"),
+    DIAMOND("DIAMOND"),
+    CLUB("CLUB"),
+    SPADE("SPADE");
 
     @Override
     public String toString() {

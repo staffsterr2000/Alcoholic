@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+// custom deck
 public class Deck {
     protected List<Card> cards = new LinkedList<>();
     protected List<Hand> hands;
@@ -19,11 +20,10 @@ public class Deck {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder(getClass().getSimpleName()).append("{");
+        StringBuilder builder = new StringBuilder();
         for (Card card : cards) {
             builder.append("\n\t").append(card.toString());
         }
-        builder.append("\n}");
 
         return builder.toString();
     }
@@ -45,6 +45,9 @@ public class Deck {
     }
 
     public void deal(int players) {
+        if (players < 2)
+            throw new IllegalStateException("Need more players for dealing!");
+
         int cardsOnHand = size() / players;
         if (cardsOnHand < 1)
             throw new IllegalStateException("Need more cards or less players!");

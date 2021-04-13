@@ -1,9 +1,9 @@
 package com.stas.alcoholic;
 
 import com.stas.alcoholic.cards.Card;
+import com.stas.alcoholic.cards.CardUtil;
 import com.stas.alcoholic.decks.Deck;
 import com.stas.alcoholic.decks.Hand;
-import com.stas.alcoholic.decks.StrippedDeck;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,22 +15,37 @@ import java.util.List;
 public class Game {
     static Game game = new Game();
 
-    List<Card> table = new LinkedList<>();
-    Deck deck = new StrippedDeck();
-    List<Hand> hands;
     boolean hasLoser = false;
+    Deck deck = new Deck();
+    List<Hand> hands;
+    List<Card> table = new LinkedList<>();
 
-    void run() {
+    public void randomDeck() {
+        deck.addCards(CardUtil.getStrippedDeck());
+        deck.shuffle();
+    }
+
+    public void customDeck(BufferedReader console) throws IOException {
+        System.out.println("Cards=================");
+        String input;
+        while ((input = console.readLine()) != null && !input.isEmpty()) {
+            deck.addCard(CardUtil.getCardsByString(input));
+        }
+    }
+
+    public void run() {
         try (BufferedReader console = new BufferedReader(new InputStreamReader(System.in));) {
-//            System.out.println("Cards=================");
-//            String input;
-//            while ((input = console.readLine()) != null && !input.isEmpty()) {
-//                deck.addCard(CardUtil.getCardsByString(input));
-//            }
+            System.out.println("Random(r) / Custom(c) deck?");
+            String input = console.readLine();
+            System.out.println();
 
-            deck.shuffle();
+            switch (input.toLowerCase()) {
+                case "r" -> randomDeck();
+                case "c" -> customDeck(console);
+                default -> throw new IllegalStateException("Wrong input");
+            }
 
-            System.out.println("Deck==================");
+            System.out.print("Deck==================");
             System.out.println(deck);
             System.out.println();
 
@@ -55,21 +70,26 @@ public class Game {
         int gambits = 0;
         outer:
         while (true) {
-            for (; ; i++, gambits++) {
+            for (; ; i++) {
                 if (hasLoser) break outer;
+                System.out.println("Round " + (++gambits) + ":");
                 System.out.println("Hands==================");
-                System.out.println(hands);
-                System.out.println();
+                hands.forEach(System.out::println);
+
                 Hand hand = hands.get(i % hands.size());
                 table.add(hand.removeCard());
 
                 System.out.println("Table==================");
                 System.out.println(table);
                 System.out.println();
+
+                // check for round loser
                 if (isCardLess()) {
                     hand.grab(table);
                     table = new LinkedList<>();
                 }
+
+                // check for empty hands
                 Iterator<Hand> iterator = hands.iterator();
                 while (iterator.hasNext()) {
                     Hand h = iterator.next();
@@ -88,7 +108,6 @@ public class Game {
 
         System.out.println("Loser===================");
         System.out.println(hands.get(0).getOwner());
-        System.out.println();
     }
 
     public void checkForLoser() {
